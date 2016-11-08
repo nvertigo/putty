@@ -667,6 +667,10 @@ struct config_tag {
     int shadowboldoffset;
     int crhaslf;
     char winclass[256];
+    int save_windowpos;
+    int windowpos_top;
+    int windowpos_left;
+    Filename iconfile;
 };
 
 /*

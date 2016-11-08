@@ -228,6 +228,8 @@ GLOBAL void *logctx;
  */
 #define FILTER_KEY_FILES ("PuTTY Private Key Files (*.ppk)\0*.ppk\0" \
 			      "All Files (*.*)\0*\0\0\0")
+#define FILTER_ICON_FILES ("Windows Icon files(*.ico)\0*.ico\0" \
+			      "All Files (*.*)\0*\0\0\0")
 #define FILTER_WAVE_FILES ("Wave Files (*.wav)\0*.WAV\0" \
 			       "All Files (*.*)\0*\0\0\0")
 #define FILTER_DYNLIB_FILES ("Dynamic Library Files (*.dll)\0*.dll\0" \

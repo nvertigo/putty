@@ -414,6 +414,7 @@ void save_open_settings(void *sesskey, Config *cfg)
     write_setting_s(sesskey, "LogHost", cfg->loghost);
     write_setting_i(sesskey, "SSH2DES", cfg->ssh2_des_cbc);
     write_setting_filename(sesskey, "PublicKeyFile", cfg->keyfile);
+    write_setting_filename(sesskey, "IconFile", cfg->iconfile); /* BKG */
     write_setting_s(sesskey, "RemoteCommand", cfg->remote_cmd);
     write_setting_i(sesskey, "RFCEnviron", cfg->rfc_environ);
     write_setting_i(sesskey, "PassiveTelnet", cfg->passive_telnet);
@@ -445,6 +446,9 @@ void save_open_settings(void *sesskey, Config *cfg)
     write_setting_i(sesskey, "AlwaysOnTop", cfg->alwaysontop);
     write_setting_i(sesskey, "FullScreenOnAltEnter", cfg->fullscreenonaltenter);
     write_setting_i(sesskey, "HideMousePtr", cfg->hide_mouseptr);
+    write_setting_i(sesskey, "SaveWindowPos", cfg->save_windowpos); /* BKG */
+    write_setting_i(sesskey, "SaveWindowTop", cfg->windowpos_top); /* BKG */
+    write_setting_i(sesskey, "SaveWindowLeft", cfg->windowpos_left); /* BKG */
     write_setting_i(sesskey, "SunkenEdge", cfg->sunken_edge);
     write_setting_i(sesskey, "WindowBorder", cfg->window_border);
     write_setting_i(sesskey, "CurType", cfg->cursor_type);
@@ -710,6 +714,7 @@ void load_open_settings(void *sesskey, Config *cfg)
 #endif
     gppi(sesskey, "SshNoShell", 0, &cfg->ssh_no_shell);
     gppfile(sesskey, "PublicKeyFile", &cfg->keyfile);
+    gppfile(sesskey, "IconFile", &cfg->iconfile); /* BKG */
     gpps(sesskey, "RemoteCommand", "", cfg->remote_cmd,
 	 sizeof(cfg->remote_cmd));
     gppi(sesskey, "RFCEnviron", 0, &cfg->rfc_environ);
@@ -753,6 +758,9 @@ void load_open_settings(void *sesskey, Config *cfg)
     gppi(sesskey, "AlwaysOnTop", 0, &cfg->alwaysontop);
     gppi(sesskey, "FullScreenOnAltEnter", 0, &cfg->fullscreenonaltenter);
     gppi(sesskey, "HideMousePtr", 0, &cfg->hide_mouseptr);
+    gppi(sesskey, "SaveWindowPos", 0, &cfg->save_windowpos); /* BKG */
+    gppi(sesskey, "SaveWindowTop", 0, &cfg->windowpos_top);  /* BKG */
+    gppi(sesskey, "SaveWindowLeft", 0, &cfg->windowpos_left); /* BKG */
     gppi(sesskey, "SunkenEdge", 0, &cfg->sunken_edge);
     gppi(sesskey, "WindowBorder", 1, &cfg->window_border);
     gppi(sesskey, "CurType", 0, &cfg->cursor_type);

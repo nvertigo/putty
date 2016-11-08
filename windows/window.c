@@ -327,7 +327,7 @@ int WINAPI WinMain(HINSTANCE inst, HINSTANCE prev, LPSTR cmdline, int show)
     WNDCLASS wndclass;
     MSG msg;
     HRESULT hr;
-    int guess_width, guess_height;
+    int guess_width, guess_height,use_left,use_top;
 
     hinst = inst;
     hwnd = NULL;
@@ -682,8 +682,18 @@ int WINAPI WinMain(HINSTANCE inst, HINSTANCE prev, LPSTR cmdline, int show)
 	    exwinmode |= WS_EX_TOPMOST;
 	if (cfg.sunken_edge)
 	    exwinmode |= WS_EX_CLIENTEDGE;
+
+
+	if (cfg.save_windowpos) {
+			use_left = cfg.windowpos_left;
+			use_top = cfg.windowpos_top;
+	} else {
+			use_left = CW_USEDEFAULT;
+			use_top = CW_USEDEFAULT;
+	}
+
 	hwnd = CreateWindowEx(exwinmode, appname, appname,
-			      winmode, CW_USEDEFAULT, CW_USEDEFAULT,
+			      winmode, use_left, use_top,
 			      guess_width, guess_height,
 			      NULL, NULL, inst, NULL);
     }
@@ -817,6 +827,15 @@ int WINAPI WinMain(HINSTANCE inst, HINSTANCE prev, LPSTR cmdline, int show)
     ShowWindow(hwnd, show);
     SetForegroundWindow(hwnd);
 
+	/* BKG */
+	if (!filename_is_null(cfg.iconfile)) {
+		char *fn = filename_to_str(&cfg.iconfile);
+		HICON icon;
+		icon = ExtractIcon(hwnd,fn,0);
+		if ((icon != NULL) && (icon != (HICON) 1))
+			SendMessage(hwnd, WM_SETICON, (WPARAM) ICON_SMALL,
+					(LPARAM) icon);
+	}
     /*
      * Set the palette up.
      */

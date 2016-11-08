@@ -1584,7 +1584,31 @@ void setup_config_box(struct controlbox *b, int midsession,
 		 HELPCTX(appearance_border),
 		 dlg_stdeditbox_handler,
 		 I(offsetof(Config,window_border)), I(-1));
+	/*
+     * Brad's The Window/Position & Icon panel.
+     */
+	/* BKG */
+    s = ctrl_getset(b, "Window/Position & Icon", "position",
+		    "Remember Window Position");
+    ctrl_checkbox(s, "Remeber Window Positions", 'p',
+		  HELPCTX(appearance_hidemouse),
+		  dlg_stdcheckbox_handler, I(offsetof(Config,save_windowpos)));
 
+    ctrl_editbox(s, "Top:", NO_SHORTCUT, 20,
+		 HELPCTX(appearance_border),
+		 dlg_stdeditbox_handler,
+		 I(offsetof(Config,windowpos_top)), I(-1));
+
+    ctrl_editbox(s, "Left:", NO_SHORTCUT, 20,
+		 HELPCTX(appearance_border),
+		 dlg_stdeditbox_handler,
+		 I(offsetof(Config,windowpos_left)), I(-1));
+
+	/* BKG */
+	ctrl_filesel(s, "Icon file for window:", 'k',
+			 FILTER_ICON_FILES, FALSE, "Select icon file",
+			 HELPCTX(ssh_auth_privkey),
+			 dlg_stdfilesel_handler, I(offsetof(Config, iconfile)));
     /*
      * The Window/Behaviour panel.
      */
